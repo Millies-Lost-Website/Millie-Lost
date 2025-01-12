@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Millie's Lost & Found</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #FFF4E6; /* Peachy background */
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            text-align: center;
+            color: #FF7043; /* Peachy color for header */
+        }
+        .pet-image {
+            display: block;
+            width: 150px;
+            height: 150px;
+            margin: 20px auto;
+            border-radius: 50%; /* Perfectly circular */
+            object-fit: cover; /* Ensures image doesn't stretch */
+        }
+        .tags {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px; /* Increased gap between image and tags */
+        }
+        .tag {
+            background-color: #FFEBEE; /* Light peach background for tags */
+            padding: 10px 20px;
+            margin: 0 5px;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #FF7043; /* Peachy color for text */
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #777;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #FF7043; /* Peachy button color */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            width: 100%;
+            margin-top: 10px; /* Reduced margin here */
+        }
+        .button:hover {
+            background-color: #F4511E; /* Darker peach for hover effect */
+        }
+        .dropdown {
+            margin-bottom: 10px;
+        }
+        .dropdown button {
+            width: 100%;
+            padding: 10px;
+            text-align: left;
+            background-color: #FFEBEE; /* Light peach background for buttons */
+            border: 1px solid #FF7043; /* Peach border color */
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            font-weight: bold; /* Bold titles in dropdown buttons */
+        }
+        .dropdown-content {
+            display: block;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .arrow {
+            float: right;
+            transition: transform 0.3s ease;
+        }
+        .dropdown.open .arrow {
+            transform: rotate(180deg);
+        }
+        .dropdown.open .dropdown-content {
+            display: block;
+        }
+
+        /* Gap between the button and dropdown */
+        .location-gap {
+            margin-top: 30px;
+        }
+
+        /* Styling for the phone number and "Call Renae" button */
+        .phone-number {
+            display: inline-block;
+            font-size: 18px;
+            color: #333;
+            font-weight: normal; /* Un-bold the phone number */
+            margin-right: 10px;
+        }
+        .call-button {
+            background-color: #FF7043;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px; /* Increased button size */
+            padding: 10px 20px; /* Increased padding */
+            cursor: pointer;
+            width: 100%; /* Full width for centering */
+            margin-top: 20px; /* Margin between button and other content */
+            text-align: center;
+        }
+        .call-button:hover {
+            background-color: #F4511E;
+        }
+
+        /* Bold the titles inside the info sections */
+        .important {
+            font-weight: bold;
+        }
+
+        /* Centralized and highlighted text (Subtle) */
+        .highlight-text {
+            text-align: center;
+            font-size: 18px;
+            font-weight: normal; /* Make the text not bold */
+            color: #FF7043; /* Peachy color for text */
+            background-color: #FFE0D6; /* Much lighter peach background */
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 20px;
+            margin-bottom: 30px; /* Increased gap to tags */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow for subtle depth */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Help Find Millie!</h1>
+        <img src="millie.jpg" alt="Millie" class="pet-image">
+        
+        <!-- Tags Section -->
+        <div class="tags">
+            <div class="tag">Female</div>
+            <div class="tag">Golden Retriever</div>
+            <div class="tag">10 Years Old</div>
+        </div>
+
+        <!-- Centralized and Highlighted Text (Subtle) -->
+        <p class="highlight-text">If you find Millie, please click the button below to share your location, so that we can locate her.</p>
+
+        <!-- Share Location Button -->
+        <button class="button" onclick="getLocation()">Share Your Location</button>
+
+        <!-- Adding a gap between the Share Location button and Pet Info dropdown -->
+        <div class="location-gap"></div>
+
+        <!-- Pet Information Section -->
+        <div class="dropdown">
+            <button onclick="toggleDropdown('petInfo')">
+                <strong>Pet Information</strong> <span class="arrow">&#9654;</span>
+            </button>
+            <div class="dropdown-content" id="petInfo">
+                <p><span class="important">Name:</span> Millie</p>
+                <p><span class="important">Important Info:</span> Millie is a 10 Year Old, Golden Retriever.</p>
+            </div>
+        </div>
+
+        <!-- Owner Information Section -->
+        <div class="dropdown">
+            <button onclick="toggleDropdown('ownerInfo')">
+                <strong>Owner Information</strong> <span class="arrow">&#9654;</span>
+            </button>
+            <div class="dropdown-content" id="ownerInfo">
+                <p><span class="important">Name:</span> Renae Warr</p>
+                <!-- Phone Number -->
+                <p><span class="important">Phone Number:</span>
+                    <span class="phone-number">0433 780 207</span>
+                </p>
+                <p><span class="important">Address:</span> 2, Eucalypt Court, Riddells Creek, 3431</p>
+                <p><span class="important">Email Address:</span> renaewarr@bigpond.com</p>
+            </div>
+        </div>
+
+        <!-- Call Renae Button below Owner Info -->
+        <a href="tel:+61433780207">
+            <button class="call-button">Call Renae (0433 780 207)</button>
+        </a>
+
+    </div>
+
+    <div class="footer">
+        <p>Thank you for helping to find Millie!</p>
+    </div>
+
+    <script>
+        // Geolocation function
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var lat = position.coords.latitude;
+                    var lon = position.coords.longitude;
+                    var locationLink = "https://www.google.com/maps?q=" + lat + "," + lon;
+                    
+                    // Prepare SMS link with location
+                    var smsMessage = "I%20found%20Millie%20at%20" + locationLink;
+                    window.location.href = "sms:?body=" + smsMessage; // Send SMS with location link
+                }, function(error) {
+                    // Do nothing here (no status message)
+                });
+            } else {
+                // Do nothing here (no status message)
+            }
+        }
+
+        // Toggle dropdown visibility
+        function toggleDropdown(id) {
+            var dropdown = document.getElementById(id);
+            var arrow = dropdown.previousElementSibling.querySelector('.arrow');
+            if (dropdown.style.display === "block") {
+                dropdown.style.display = "none";
+                arrow.innerHTML = "&#9654;"; // Pointing to the right
+            } else {
+                dropdown.style.display = "block";
+                arrow.innerHTML = "&#9660;"; // Pointing down
+            }
+        }
+    </script>
+</body>
+</html>
